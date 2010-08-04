@@ -7,8 +7,7 @@
 
 (defgeneric update (base-app))
 
-;;TODO consider renaming to draw
-(defgeneric draw-app (base-app))
+(defgeneric draw (base-app))
 
 (defgeneric exit (base-app))
 

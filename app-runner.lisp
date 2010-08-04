@@ -41,8 +41,9 @@
   (setf (width (window runner)) width)
   (setf (height (window runner)) height))
 
-(defgeneric set-window-title (app-runner string))
-(defmethod set-window-title ((runner app-runner) title)
-  (setf (title (window runner)) title))
+;;TODO a generic function with this name is already defined elsewhere
+;; (defgeneric set-window-title (app-runner string))
+;; (defmethod set-window-title ((runner app-runner) title)
+;;   (setf (title (window runner)) title))
 
 (defgeneric set-fullscreen (app-runner boolean))
