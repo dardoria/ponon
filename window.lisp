@@ -45,7 +45,7 @@
   (window-resized (app window) width height))
 
 (defmethod glut:display ((window glut-window))
-  (draw-app (app window)))
+  (draw (app window)))
 
 (defmethod glut:idle ((window glut-window))
   (update (app window)))

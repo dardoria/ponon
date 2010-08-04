@@ -43,4 +43,3 @@
 
 (defgeneric audio-requested (base-app stream integer integer)
   (:documentation "Audio requested at otput stream with buffer-size and number of channels"))
-  
