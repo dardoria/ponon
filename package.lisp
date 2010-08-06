@@ -24,6 +24,7 @@
    #:audio-received
    #:audio-requested
    ;;app-runner
+   #:run-app
    #:app-runner
    #:run
    #:window-position-x
