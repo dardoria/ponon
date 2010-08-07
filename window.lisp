@@ -25,7 +25,8 @@
 (in-package :ponon)
 
 (defclass glut-window (cl-glut:window)
-  ((app :accessor app)))
+  ((app :accessor app))
+  (:default-initargs :width 500 :height 500 :title "ponon" :mode '(:rgb :double :depth :alpha)))
 
 (defgeneric run-via-infinite-loop (glut-window base-app)
   (:documentation "Create window and start application loop."))

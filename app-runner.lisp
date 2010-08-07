@@ -78,6 +78,6 @@
 ;;main run function
 ;;TODO use rest args
 (defun run-app (app)
-  (let ((window (make-instance 'ponon:glut-window :width 300 :height 300))
+  (let ((window (make-instance 'ponon:glut-window))
 	(runner (make-instance 'ponon:app-runner)))
     (run runner app window)))
