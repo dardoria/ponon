@@ -59,4 +59,7 @@
    #:screen-height
    #:set-window-postion
    #:set-wndow-size
-   #:set-fullscreen))
+   #:set-fullscreen
+   ;;graphics
+   #:set-background
+   #:clear))

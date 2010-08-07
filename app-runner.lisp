@@ -36,8 +36,7 @@
   (setf (window runner) window)
   (setf (app-runner app) runner)
 ;;todo handle errors and close window
-  (glut:display-window window)
-  (run-via-infinite-loop window app))
+  (glut:display-window window))
 
 (defgeneric window-position-x (app-runner))
 (defmethod window-position-x ((runner app-runner))
@@ -75,9 +74,9 @@
 
 (defgeneric set-fullscreen (app-runner boolean))
 
-;;main run function
-;;TODO use rest args
-(defun run-app (app)
-  (let ((window (make-instance 'ponon:glut-window))
-	(runner (make-instance 'ponon:app-runner)))
-    (run runner app window)))
+(defmacro run-app (app &rest window-args)
+  `(let ((window (make-instance 'ponon:glut-window ,@window-args))
+         (runner (make-instance 'ponon:app-runner)))
+     (run runner ,app window)))
+
+

@@ -28,13 +28,9 @@
   ((app :accessor app))
   (:default-initargs :width 500 :height 500 :title "ponon" :mode '(:rgb :double :depth :alpha)))
 
-(defgeneric run-via-infinite-loop (glut-window base-app)
-  (:documentation "Create window and start application loop."))
-	 
-(defmethod run-via-infinite-loop ((window glut-window) (app base-app))
-  (setup app)
-  (update app)
-  (cl-glut:main-loop))
+(defmethod glut:display-window :before ((window glut-window))
+  (setup (app window))
+  (update (app window)))
 
 (defmethod glut:keyboard ((window glut-window) key x y)
   (declare (ignore x y))
@@ -73,4 +69,5 @@
   (draw (app window)))
 
 (defmethod glut:idle ((window glut-window))
-  (update (app window)))
+  (update (app window))
+  (cl-glut:post-redisplay))

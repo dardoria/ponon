@@ -1,6 +1,6 @@
 ;;; -*- Mode: Lisp; indent-tabs-mode: nil -*-
 ;;;
-;;; ponon.asd --- Ponon asdf definitions
+;;; graphics.lisp --- Ponon graphics interface
 ;;;
 ;;; Copyright (c) 2010, Boian Tzonev <boiantz@gmail.com>
 ;;;
@@ -22,15 +22,26 @@
 ;;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 ;;; THE SOFTWARE.
 
-(asdf:defsystem "ponon"
-    :description "Common Lisp library for creative coding."
-    :version "0.1"
-    :author "Boian Tzonev <btzonev@gmail.com>"
-    :licence "MIT License"
-    :depends-on (cffi cl-glut)
-    :components ((:file "package")
-		 (:file "app" :depends-on ("package"))
-		 (:file "window" :depends-on ("package"))
-		 (:file "app-runner" :depends-on ("package"))
-                 (:file "graphics" :depends-on ("package"))))
-		 
+(in-package :ponon)
+
+(defparameter *bg-color* `(255 255 255))
+
+(defun set-background (red green blue)
+  (setf *bg-color* (list red green blue))
+  (format t "~a~%" *bg-color*)
+  (cl-opengl:clear-color red green blue 0)
+  (cl-opengl:clear :color-buffer :depth-buffer))
+
+(defun clear ()
+  (cl-opengl:clear-color (first *bg-color*) (second *bg-color*) (third *bg-color*) 0)
+  (cl-opengl:clear :color-buffer :depth-buffer))
+ 
+;;(defun point (x y))
+
+;;(defun line (x1 y1 x2 y2))
+
+;;(defun rectangle (x y width height))
+
+;;(defun triangle (x1 y1 x2 y2 x3 y3))
+
+;;(defun circle (x y radius))
