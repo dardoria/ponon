@@ -62,4 +62,5 @@
    #:set-fullscreen
    ;;graphics
    #:set-background
-   #:clear))
+   #:clear
+   #:draw-line))

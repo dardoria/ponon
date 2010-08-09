@@ -79,4 +79,3 @@
          (runner (make-instance 'ponon:app-runner)))
      (run runner ,app window)))
 
-

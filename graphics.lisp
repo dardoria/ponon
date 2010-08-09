@@ -1,3 +1,4 @@
+
 ;;; -*- Mode: Lisp; indent-tabs-mode: nil -*-
 ;;;
 ;;; graphics.lisp --- Ponon graphics interface
@@ -24,21 +25,20 @@
 
 (in-package :ponon)
 
-(defparameter *bg-color* `(255 255 255))
+(defparameter *bg-color* `(0 0 0))
 
 (defun set-background (red green blue)
   (setf *bg-color* (list red green blue))
-  (format t "~a~%" *bg-color*)
-  (cl-opengl:clear-color red green blue 0)
-  (cl-opengl:clear :color-buffer :depth-buffer))
+  (clear))
 
 (defun clear ()
-  (cl-opengl:clear-color (first *bg-color*) (second *bg-color*) (third *bg-color*) 0)
-  (cl-opengl:clear :color-buffer :depth-buffer))
+  (gl:clear-color (first *bg-color*) (second *bg-color*) (third *bg-color*) 0)
+  (gl:clear :color-buffer :depth-buffer))
  
-;;(defun point (x y))
-
-;;(defun line (x1 y1 x2 y2))
+(defun draw-line (x1 y1 x2 y2)
+  (gl:with-primitives :lines
+    (gl:vertex x1 y1)
+    (gl:vertex x2 y2)))
 
 ;;(defun rectangle (x y width height))
 

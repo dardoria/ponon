@@ -24,7 +24,7 @@
 
 (in-package :ponon)
 
-(defclass glut-window (cl-glut:window)
+(defclass glut-window (glut:window)
   ((app :accessor app))
   (:default-initargs :width 500 :height 500 :title "ponon" :mode '(:rgb :double :depth :alpha)))
 
@@ -66,8 +66,10 @@
   (window-resized (app window) width height))
 
 (defmethod glut:display ((window glut-window))
-  (draw (app window)))
+  (draw (app window))
+  ;;TODO make sure mode is not single
+  (glut:swap-buffers))
 
 (defmethod glut:idle ((window glut-window))
   (update (app window))
-  (cl-glut:post-redisplay))
+  (glut:post-redisplay))
