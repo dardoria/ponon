@@ -1,7 +1,4 @@
-(defpackage :ponon-drawing-example
-  (:use :cl :ponon))
-
-(in-package :ponon-drawing-example)
+(in-package :ponon-examples)
 
 (defclass drawing-app (base-app)())
 
@@ -10,10 +7,18 @@
 
 (defmethod draw ((app drawing-app))
   (ponon:clear)
-  (gl:color 0 0 0)
+  (ponon:color 0.90 0.20 0.50)
   (gl:line-width 1)
-  (ponon:draw-line 0.10 0 0.30 0.20)
-  (ponon:draw-line 0.10 0 0.30 0))
+  (ponon:draw-line 10 300 20 20)
+  (ponon:draw-line 0 0 40 400)
+  (ponon:draw-line 400 0 40 400)
+  (setf ponon:*fill* T)
+  (ponon:draw-rectangle 100 30 300 390)
+  (setf ponon:*fill* nil)
+  (ponon:color 0.90 0.20 0)
+  (ponon:draw-triangle 40 40 60 90 80 90)
+  (setf ponon:*fill* t)
+  (ponon:draw-triangle 40 40 60 90 80 90)))
 
 (defun run-example ()
   (ponon:run-app (make-instance 'drawing-app) :title "drawing" :pos-x 100 :pos-y 100))

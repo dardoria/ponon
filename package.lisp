@@ -61,6 +61,10 @@
    #:set-wndow-size
    #:set-fullscreen
    ;;graphics
+   #:*fill*
    #:set-background
    #:clear
-   #:draw-line))
+   #:color
+   #:draw-line
+   #:draw-rectangle
+   #:draw-triangle))

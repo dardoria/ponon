@@ -26,10 +26,14 @@
 (in-package :ponon)
 
 (defparameter *bg-color* `(0 0 0))
+(defparameter *fill* nil)
 
 (defun set-background (red green blue)
   (setf *bg-color* (list red green blue))
   (clear))
+
+(defun color (red green blue &optional (alpha 0))
+  (gl:color red green blue alpha))
 
 (defun clear ()
   (gl:clear-color (first *bg-color*) (second *bg-color*) (third *bg-color*) 0)
@@ -40,8 +44,23 @@
     (gl:vertex x1 y1)
     (gl:vertex x2 y2)))
 
-;;(defun rectangle (x y width height))
+(defun draw-rectangle (x y width height)
+  (if *fill*
+      (gl:rect x y (+ x width)(+ y height))
+      (gl:with-primitives :line-loop
+	(gl:vertex x y)
+	(gl:vertex (+ x width) y)
+	(gl:vertex (+ x width) (+ y height))
+	(gl:vertex x (+ y height)))))
+  
 
-;;(defun triangle (x1 y1 x2 y2 x3 y3))
+(defun draw-triangle (x1 y1 x2 y2 x3 y3)
+  (let ((mode (if *fill*
+		  :triangles
+		  :line-loop)))
+    (gl:with-primitives mode
+      (gl:vertex x1 y1)
+      (gl:vertex x2 y2)
+      (gl:vertex x3 y3))))
 
-;;(defun circle (x y radius))
+(defun circle (x y radius))

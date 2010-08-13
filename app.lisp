@@ -41,7 +41,12 @@
 
 (defgeneric window-resized (base-app width height)
   (:documentation "Handle window resized event."))
-(defmethod window-resized ((app base-app) width heigth))
+
+(defmethod window-resized ((app base-app) width height)
+  (gl:viewport 0 0 width height)
+  (gl:matrix-mode :projection)
+  (gl:load-identity)
+  (glu:ortho-2d 0 width 0 height))
 
 (defgeneric key-pressed (base-app key)
   (:documentation "Handle key pressed event."))
