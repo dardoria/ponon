@@ -55,12 +55,20 @@
   
 
 (defun draw-triangle (x1 y1 x2 y2 x3 y3)
-  (let ((mode (if *fill*
-		  :triangles
-		  :line-loop)))
-    (gl:with-primitives mode
-      (gl:vertex x1 y1)
-      (gl:vertex x2 y2)
-      (gl:vertex x3 y3))))
+  (with-fill-mode :triangles
+    (gl:vertex x1 y1)
+    (gl:vertex x2 y2)
+    (gl:vertex x3 y3)))
 
-(defun circle (x y radius))
+(defun draw-circle (x y radius)
+  ;;TODO consider optimizing this
+  (with-fill-mode :triangle-fan
+  (let ((circle-points 100))
+    (loop for i from 0 upto circle-points
+       for angle = (/ (* 2 pi i) circle-points)
+       do (gl:vertex (+ x (* (cos angle) radius))
+		     (+ y (* (sin angle) radius)))))))
+
+(defmacro with-fill-mode (mode &body body)
+  `(let ((new-mode (if *fill* ,mode :line-loop)))
+     (gl:with-primitives new-mode ,@body)))

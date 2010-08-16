@@ -67,4 +67,5 @@
    #:color
    #:draw-line
    #:draw-rectangle
-   #:draw-triangle))
+   #:draw-triangle
+   #:draw-circle))

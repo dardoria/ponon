@@ -18,7 +18,10 @@
   (ponon:color 0.90 0.20 0)
   (ponon:draw-triangle 40 40 60 90 80 90)
   (setf ponon:*fill* t)
-  (ponon:draw-triangle 40 40 60 90 80 90)))
+  (ponon:draw-triangle 40 40 60 90 80 0)
+  (ponon:draw-line 22 22 44 44)
+  (ponon:color 0.90 0.920 0)
+  (ponon:draw-circle 200 220 68))
 
 (defun run-example ()
   (ponon:run-app (make-instance 'drawing-app) :title "drawing" :pos-x 100 :pos-y 100))
