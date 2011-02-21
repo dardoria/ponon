@@ -67,7 +67,6 @@
 
 (defmethod glut:display ((window glut-window))
   (draw (app window))
-  ;;TODO make sure mode is not single
   (glut:swap-buffers))
 
 (defmethod glut:idle ((window glut-window))

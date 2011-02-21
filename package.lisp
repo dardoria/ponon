@@ -68,4 +68,5 @@
    #:draw-line
    #:draw-rectangle
    #:draw-triangle
-   #:draw-circle))
+   #:draw-circle
+   #:draw-polygon))

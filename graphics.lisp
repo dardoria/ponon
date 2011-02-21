@@ -25,6 +25,11 @@
 
 (in-package :ponon)
 
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (defmacro with-fill-mode (mode &body body)
+    `(let ((new-mode (if *fill* ,mode :line-loop)))
+       (gl:with-primitives new-mode ,@body))))
+
 (defparameter *bg-color* `(0 0 0))
 (defparameter *fill* nil)
 
@@ -61,14 +66,23 @@
     (gl:vertex x3 y3)))
 
 (defun draw-circle (x y radius)
-  ;;TODO consider optimizing this
+  ;;algorithm adapted from http://slabode.exofire.net/circle_draw.shtml
   (with-fill-mode :triangle-fan
-  (let ((circle-points 100))
-    (loop for i from 0 upto circle-points
-       for angle = (/ (* 2 pi i) circle-points)
-       do (gl:vertex (+ x (* (cos angle) radius))
-		     (+ y (* (sin angle) radius)))))))
+    (let* ((circle-points (* 10 (sqrt radius)))
+	   (theta (/ (* 2 pi) circle-points))
+	   (c (cos theta))
+	   (s (sin theta))
+	   (tmp-x radius)
+	   (tmp-y 0)
+	   (tmp nil))
+      (loop repeat circle-points
+	 do (progn
+	      (gl:vertex (+ x tmp-x) (+ y tmp-y))
+	      (setf tmp tmp-x)
+	      (setf tmp-x (- (* c tmp-x) (* s tmp-y)))
+	      (setf tmp-y (+ (* s tmp) (* c tmp-y))))))))
 
-(defmacro with-fill-mode (mode &body body)
-  `(let ((new-mode (if *fill* ,mode :line-loop)))
-     (gl:with-primitives new-mode ,@body)))
+(defun draw-polygon (points)
+  (with-fill-mode :polygon
+    (loop for (x y) in points
+       do (gl:vertex x y))))

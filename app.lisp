@@ -47,6 +47,8 @@
   (gl:matrix-mode :projection)
   (gl:load-identity)
   (glu:ortho-2d 0 width 0 height))
+  ;;TODO this centers screen, decide what to use
+  ;(glu:ortho-2d (- (/ width 2)) (/ width 2) (- (/ height 2)) (/ height 2)))
 
 (defgeneric key-pressed (base-app key)
   (:documentation "Handle key pressed event."))
