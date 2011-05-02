@@ -1,4 +1,3 @@
-
 ;;; -*- Mode: Lisp; indent-tabs-mode: nil -*-
 ;;;
 ;;; graphics.lisp --- Ponon graphics interface
@@ -82,7 +81,32 @@
 	      (setf tmp-x (- (* c tmp-x) (* s tmp-y)))
 	      (setf tmp-y (+ (* s tmp) (* c tmp-y))))))))
 
+(defun draw-arc (x y radius start-angle arc-angle)
+)
+
+;;tessellator
+(defparameter *tessellator* nil)
+
+(defclass ponon-tessellator (glu:tessellator)
+  ())
+
+(defmethod glu:vertex-data-callback ((tess ponon-tessellator) vertex-data polygon-data)
+  (gl:vertex (gl:glaref vertex-data 0) (gl:glaref vertex-data 1) (gl:glaref vertex-data 2)))
+
+(defmethod glu:combine-data-callback ((tess ponon-tessellator) coords vertex-data weight polygon-data)
+  (let ((vertex '()))
+    (loop for i from 3 downto 0
+       do (push (gl:glaref coords i) vertex))
+    vertex))
+
 (defun draw-polygon (points)
-  (with-fill-mode :polygon
-    (loop for (x y) in points
-       do (gl:vertex x y))))
+  (unless *tessellator*
+    (setf *tessellator* (make-instance 'ponon-tessellator)))
+  ;;todo this should save and restore the previous value
+  ;;todo this should be able to draw not solid polygons too
+  (glu:tess-property *tessellator* :winding-rule :positive)
+
+  (glu:with-tess-polygon (*tessellator* nil)
+    (glu:with-tess-contour *tessellator*
+      (loop for coords in points
+	 do (glu:tess-vertex *tessellator* coords)))))

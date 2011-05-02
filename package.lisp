@@ -69,4 +69,5 @@
    #:draw-rectangle
    #:draw-triangle
    #:draw-circle
+   #:draw-arc
    #:draw-polygon))
