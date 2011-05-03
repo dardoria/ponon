@@ -27,7 +27,7 @@
     :version "0.1"
     :author "Boian Tzonev <btzonev@gmail.com>"
     :licence "MIT License"
-    :depends-on (cffi cl-glut cl-glu)
+    :depends-on (cffi cl-opengl cl-glut cl-glu)
     :components ((:file "package")
 		 (:file "app" :depends-on ("package"))
 		 (:file "window" :depends-on ("package"))

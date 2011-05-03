@@ -57,7 +57,6 @@
 	(gl:vertex (+ x width) (+ y height))
 	(gl:vertex x (+ y height)))))
   
-
 (defun draw-triangle (x1 y1 x2 y2 x3 y3)
   (with-fill-mode :triangles
     (gl:vertex x1 y1)
@@ -81,11 +80,21 @@
 	      (setf tmp-x (- (* c tmp-x) (* s tmp-y)))
 	      (setf tmp-y (+ (* s tmp) (* c tmp-y))))))))
 
+;;quadric
+(defvar *quadric* nil)
+
 (defun draw-arc (x y radius start-angle arc-angle)
-)
+  (unless *quadric*
+    (setf *quadric* (glu:new-quadric)))
+  (glu:quadric-draw-style *quadric* :silhouette) ;;boundary only
+  (glu:quadric-normals *quadric* :none)
+  (gl:with-pushed-matrix
+    (gl:translate x y 0.0)
+    (glu:partial-disk *quadric* radius radius 20 4 start-angle arc-angle)))
+
 
 ;;tessellator
-(defparameter *tessellator* nil)
+(defvar *tessellator* nil)
 
 (defclass ponon-tessellator (glu:tessellator)
   ())
