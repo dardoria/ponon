@@ -1,0 +1,46 @@
+#+SEQ_TODO: TODO STARTED DEFERRED | DONE CANCELLED
+
+* Ponon
+Ponon is a tool for creative coding that aims to provide functionality similar to processing, openframeworks and fluxus in Common Lisp.
+
+** STARTED 2D primitives
+*** DONE Draw polygon
+*** DONE Draw arc
+*** DONE Draw bezier curve
+*** TODO Draw ellipse
+*** DONE Draw line
+*** DONE Draw triangle
+*** DONE Draw rectangle
+*** DONE Draw circle
+** TODO 2D shapes
+*** TODO Rotate
+*** TODO Scale
+*** TODO Move
+** TODO 3D Shapes
+** TODO Sound
+*** TODO clm
+** TODO Video
+*** TODO cl-ffmpeg
+** TODO Textures
+** TODO Fonts
+** TODO Camera
+** TODO Lights
+** TODO Viewports
+** TODO Colors
+*** TODO Fill color
+*** TODO Brush color
+** TODO Images
+** TODO Documentation
+*** TODO Start Readme file
+*** TODO Document methods
+** TODO Write examples
+*** TODO Port examples from form and code
+** Optimizations/fixes
+*** TODO Set framerate
+*** TODO Add suppport for game mode
+*** TODO Add support for fullscreen
+*** TODO Use glVertexArrays
+*** DEFERRED Remove app-runner
+
+
+
