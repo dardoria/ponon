@@ -28,8 +28,9 @@
 			(215 135)
 			(365 25)
 			(305 200)
-			(250 25))))
-;;  (ponon:draw-arc 0 0 3 0 30))
+			(250 25)))
+  (ponon:draw-curve #2A((100 220 0) (50 75 0) (-40 -100 0) (300 100 0) (-4 -490 0) (80 80 0))))
+
 
 (defun run-example ()
   (ponon:run-app (make-instance 'drawing-app) :title "drawing" :pos-x 100 :pos-y 100))

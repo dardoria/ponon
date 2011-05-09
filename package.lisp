@@ -70,4 +70,5 @@
    #:draw-triangle
    #:draw-circle
    #:draw-arc
-   #:draw-polygon))
+   #:draw-polygon
+   #:draw-curve))

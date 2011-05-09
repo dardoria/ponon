@@ -119,3 +119,13 @@
     (glu:with-tess-contour *tessellator*
       (loop for coords in points
 	 do (glu:tess-vertex *tessellator* coords)))))
+
+(defun draw-curve (points)
+  ;;todo this could be a one-time operation 
+  (gl:shade-model :flat)
+  (gl:map1 :map1-vertex-3 0 1 points)
+  (gl:enable :map1-vertex-3)
+
+  (gl:with-primitive :line-strip 
+    (loop for i from 0 to 30 ;;todo no magick numbers
+       do (gl:eval-coord-1 (/ i 30)))))
