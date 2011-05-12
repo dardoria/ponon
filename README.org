@@ -12,10 +12,11 @@ Ponon is a tool for creative coding that aims to provide functionality similar t
 *** DONE Draw triangle
 *** DONE Draw rectangle
 *** DONE Draw circle
-** TODO 2D shapes
+** STARTED 2D shapes
 *** TODO Rotate
 *** TODO Scale
 *** TODO Move
+*** TODO Draw
 ** TODO 3D Shapes
 ** TODO Sound
 *** TODO clm

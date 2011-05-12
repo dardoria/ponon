@@ -84,6 +84,7 @@
 (defvar *quadric* nil)
 
 (defun draw-arc (x y radius start-angle arc-angle)
+  ;;todo if start angle is greater than arc angle rotate them
   (unless *quadric*
     (setf *quadric* (glu:new-quadric)))
   (glu:quadric-draw-style *quadric* :silhouette) ;;boundary only
