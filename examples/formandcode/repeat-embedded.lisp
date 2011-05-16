@@ -21,18 +21,18 @@
 (defmethod draw ((app repeat-embedded))
   (set-background 0 0 0)
   
-  (loop for x by 20 from 50 below (- (window-width (app-runner app)) 50)
-     do (loop for y by 20 upto 50 below (- (window-height (app-runner app)) 50)
+  (loop for x by 20 from 50 below (- (window-width app) 50)
+     do (loop for y by 20 upto 50 below (- (window-height app) 50)
 	   do (case (option app) 
 		(1 ;; Option 1: Stitches 
 		 (draw-line (- x 5) (- y 5) (+ x 5) (+ y 5))
 		 (draw-line (+ 5 x) (- y 5) (- x 5) (+ 5 y)))
 		(2 ;; Option 2: Perspective
-		 (draw-line x y (/ (window-width (app-runner app)) 2) (/ (window-height (app-runner app)) 2)))
+		 (draw-line x y (/ (window-width app) 2) (/ (window-height app) 2)))
 		(3 ;; Option 3: Overlapping circles 
 		 (draw-circle x y 40))
 		(4 ;; Option 4: Rotating arcs 
-		 (draw-arc x y 14 90 (+ 90 PI)))
+		 (draw-arc x y 14 y (+ x PI)))		 
 		(5 ;;Option 5: Groups of five  
 		 (loop for i from 0 by 4 below 16
 		    do (draw-line (+ x i) y (+ x i) (+ y 12)))
@@ -44,4 +44,4 @@
     (setf (option app) 1)))
 
 (defun run-repeat-embedded ()
-  (run-app (make-instance 'repeat-embedded) :title "repeat-embedded" :width 300 :height 400))
+  (run (make-app 'repeat-embedded :title "repeat-embedded" :width 400 :height 300)))

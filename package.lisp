@@ -31,11 +31,22 @@
    ;;window
    #:glut-window
    ;;app
+   #:make-app
    #:base-app
    #:setup
    #:update
    #:draw
    #:exit
+   #:run
+   #:window-position-x
+   #:window-position-y
+   #:window-width
+   #:window-height
+   #:screen-width
+   #:screen-height
+   #:set-window-postion
+   #:set-wndow-size
+   #:set-fullscreen
    #:window-resized
    #:key-pressed
    #:key-released
@@ -47,19 +58,6 @@
    #:mouse-released
    #:audio-received
    #:audio-requested
-   ;;app-runner
-   #:run-app
-   #:app-runner
-   #:run
-   #:window-position-x
-   #:window-position-y
-   #:window-width
-   #:window-height
-   #:screen-width
-   #:screen-height
-   #:set-window-postion
-   #:set-wndow-size
-   #:set-fullscreen
    ;;graphics
    #:*fill*
    #:set-background

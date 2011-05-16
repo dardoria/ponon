@@ -24,8 +24,20 @@
 
 (in-package :ponon)
 
+(defmacro make-app (app-class &rest window-args)
+  `(let* ((app (make-instance (find-class ,app-class)))
+          (app-window (make-instance 'ponon:glut-window ,@window-args)))
+     (setf (window app) app-window)
+     (setf (app app-window) app)
+     app))
+
 (defclass base-app ()
-  ((app-runner :accessor app-runner)))
+  ((window :accessor window)))
+
+(defgeneric run (app)
+  (:documentation "Start display loop")
+  (:method ((app base-app))
+    (glut:display-window (window app))))
 
 (defgeneric setup (base-app))
 (defmethod setup ((app base-app)))
@@ -39,16 +51,53 @@
 (defgeneric exit (base-app))
 (defmethod exit ((app base-app)))
 
-(defgeneric window-resized (base-app width height)
-  (:documentation "Handle window resized event."))
+(defgeneric window-position-x (app)
+  (:method ((app base-app))
+    (pos-x (window app))))
 
-(defmethod window-resized ((app base-app) width height)
-  (gl:viewport 0 0 width height)
-  (gl:matrix-mode :projection)
-  (gl:load-identity)
-  (glu:ortho-2d 0 width 0 height))
+(defgeneric window-position-y (app)
+  (:method ((app base-app))
+    (pos-y (window app))))
+
+(defgeneric window-width (app)
+  (:method ((app base-app))
+    (width (window app))))
+
+(defgeneric window-height (app)
+  (:method ((app base-app))
+    (height (window app))))
+
+(defgeneric screen-width (app))
+(defgeneric screen-height (app))
+
+(defgeneric set-window-position (app integer integer)
+  (:method ((app base-app) x y)
+    (setf (pos-x (window app)) x)
+    (setf (pos-y (window app)) y)))
+  
+(defgeneric set-window-size (app integer integer)
+  (:method ((app base-app) width height)
+    (setf (width (window app)) width)
+    (setf (height (window app)) height)))
+
+;;TODO a generic function with this name is already defined elsewhere
+;; (defgeneric set-window-title (app-runner string))
+;; (defmethod set-window-title ((runner app-runner) title)
+;;   (setf (title (window runner)) title))
+
+(defgeneric set-fullscreen (app boolean))
+
+(defgeneric window-resized (base-app width height)
+  (:documentation "Handle window resized event.")
+  ;;todo resize window correctly
+  (:method ((app base-app) width height)
+    (gl:viewport 0 0 width height)
+    (gl:matrix-mode :projection)
+    (gl:load-identity)
+    (glu:ortho-2d 0 width 0 height))
   ;;TODO this centers screen, decide what to use
-  ;(glu:ortho-2d (- (/ width 2)) (/ width 2) (- (/ height 2)) (/ height 2)))
+  ;;(glu:ortho-2d (- (/ width 2)) (/ width 2) (- (/ height 2)) (/ height 2)))
+)
 
 (defgeneric key-pressed (base-app key)
   (:documentation "Handle key pressed event."))

@@ -1,6 +1,6 @@
 ;;; -*- Mode: Lisp; indent-tabs-mode: nil -*-
 ;;;
-;;; loggin-example.lisp --- A simple app that logs the invocation of every app method
+;;; logging-example.lisp --- A simple app that logs the invocation of every app method
 ;;;
 ;;; Copyright (c) 2010, Boian Tzonev <boiantz@gmail.com>
 ;;;
@@ -22,10 +22,7 @@
 ;;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 ;;; THE SOFTWARE.
 
-(defpackage :ponon-logging-example
-  (:use :cl :ponon))
-
-(in-package :ponon-logging-example)
+(in-package :ponon-examples)
 
 (defclass logging-app (base-app)())
 
@@ -39,19 +36,19 @@
   (format t "~a~%" "draw logging app"))
 
 (defmethod window-resized ((app logging-app) width height)
-  (format t "~a~%" "rezise window logging app"))
+  (format t "~a~%" "resize window logging app"))
 
 (defmethod key-pressed ((app logging-app) key)
-  (format t "~a~%" "key-presed logging app"))
+  (format t "~a~%" "key-pressed logging app"))
 
 (defmethod key-released ((app logging-app) key)
   (format t "~a~%" "key-released logging app"))
 
 (defmethod special-key-pressed ((app logging-app) key)
-  (format t "~a~%" "special-key-presed logging app"))
+  (format t "~a~%" "special-key-pressed logging app"))
 
 (defmethod special-key-released ((app logging-app) integer)
-  (format t "~a~%" "special-key-presed logging app"))
+  (format t "~a~%" "special-key-pressed logging app"))
 
 (defmethod mouse-moved ((app logging-app) x y)
   (format t "~a~%" "mouse moved logging app"))
@@ -65,7 +62,6 @@
 (defmethod mouse-released ((app logging-app) x y button)
   (format t "~a~%" "mouse released logging app"))
 
-
-(defun run-example ()
-  (ponon:run-app (make-instance 'logging-app)))
+(defun run-logging-app ()
+  (run (make-app 'logging-app)))
 
