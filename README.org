@@ -17,6 +17,7 @@ Ponon is a tool for creative coding that aims to provide functionality similar t
 *** TODO Scale
 *** TODO Move
 *** TODO Draw
+*** TODO Color
 ** TODO 3D Shapes
 ** TODO Sound
 *** TODO clm
@@ -30,6 +31,7 @@ Ponon is a tool for creative coding that aims to provide functionality similar t
 ** TODO Colors
 *** TODO Fill color
 *** TODO Brush color
+*** TODO Gradients
 ** TODO Images
 ** TODO Documentation
 *** TODO Start Readme file
@@ -41,7 +43,7 @@ Ponon is a tool for creative coding that aims to provide functionality similar t
 *** TODO Add suppport for game mode
 *** TODO Add support for fullscreen
 *** TODO Use glVertexArrays
-*** DEFERRED Remove app-runner
+*** DONE Remove app-runner
 
 
 
