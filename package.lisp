@@ -62,7 +62,7 @@
    #:*fill*
    #:set-background
    #:clear
-   #:color
+   #:set-color
    #:draw-line
    #:draw-rectangle
    #:draw-triangle
