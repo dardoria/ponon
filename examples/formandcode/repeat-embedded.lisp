@@ -5,9 +5,10 @@
 ;; Princeton Architectural Press, 2010
 ;; ISBN 9781568989372
 ;; 
-;; This is a Common Lisp implementation of the book example written in Processing 1.2+.
-;; Get Processing at http://www.processing.org/download 
+;; This code was written for Processing 1.2+
+;; Get Processing at http://www.processing.org/download
 ;;
+;; This is a Common Lisp implementation of an example from the Book Form And Code.
 ;; This implementation requires ponon - https://github.com/dardoria/ponon
 
 (in-package :formandcode-examples)

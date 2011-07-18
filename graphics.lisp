@@ -101,13 +101,11 @@
   ())
 
 (defmethod glu:vertex-data-callback ((tess ponon-tessellator) vertex-data polygon-data)
-  (gl:vertex (gl:glaref vertex-data 0) (gl:glaref vertex-data 1) (gl:glaref vertex-data 2)))
+  (gl:vertex (first vertex-data) (second vertex-data) (third vertex-data)))
 
 (defmethod glu:combine-data-callback ((tess ponon-tessellator) coords vertex-data weight polygon-data)
-  (let ((vertex '()))
-    (loop for i from 3 downto 0
-       do (push (gl:glaref coords i) vertex))
-    vertex))
+  (loop for i from 0 below 3
+     collect (gl:glaref coords i)))
 
 (defun draw-polygon (points)
   (unless *tessellator*
@@ -119,7 +117,7 @@
   (glu:with-tess-polygon (*tessellator* nil)
     (glu:with-tess-contour *tessellator*
       (loop for coords in points
-	 do (glu:tess-vertex *tessellator* coords)))))
+	 do (glu:tess-vertex *tessellator* coords coords)))))
 
 (defun draw-curve (points)
   ;;todo this could be a one-time operation 
