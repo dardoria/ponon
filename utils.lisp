@@ -1,9 +1,8 @@
-
 ;;; -*- Mode: Lisp; indent-tabs-mode: nil -*-
 ;;;
-;;; package.lisp --- Ponon package definition and exports
+;;; utils.lisp --- Ponon utils
 ;;;
-;;; Copyright (c) 2010, Boian Tzonev <boiantz@gmail.com>
+;;; Copyright (c) 2011, Boian Tzonev <boiantz@gmail.com>
 ;;;
 ;;; Permission is hereby granted, free of charge, to any person obtaining a copy
 ;;; of this software and associated documentation files (the "Software"), to deal
@@ -23,53 +22,7 @@
 ;;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 ;;; THE SOFTWARE.
 
-(in-package #:cl-user)
+(in-package :ponon)
 
-(defpackage :ponon
-  (:use :cl :cl-glut)
-  (:shadow #:get #:close #:special)
-  (:export
-   ;;window
-   #:glut-window
-   ;;app
-   #:make-app
-   #:base-app
-   #:setup
-   #:update
-   #:draw
-   #:exit
-   #:run
-   #:window-position-x
-   #:window-position-y
-   #:window-width
-   #:window-height
-   #:screen-width
-   #:screen-height
-   #:set-window-postion
-   #:set-wndow-size
-   #:set-fullscreen
-   #:window-resized
-   #:key-pressed
-   #:key-released
-   #:special-key-pressed
-   #:special-key-released
-   #:mouse-moved
-   #:mouse-dragged
-   #:mouse-pressed
-   #:mouse-released
-   #:audio-received
-   #:audio-requested
-   ;;graphics
-   #:*fill*
-   #:set-background
-   #:clear
-   #:set-color
-   #:draw-line
-   #:draw-rectangle
-   #:draw-triangle
-   #:draw-circle
-   #:draw-arc
-   #:draw-polygon
-   #:draw-curve
-   ;;utils
-   #:radian))
+(defun radian (degree)
+  (* degree (/ PI 180)))

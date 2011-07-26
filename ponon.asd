@@ -31,5 +31,6 @@
     :components ((:file "package")
 		 (:file "app" :depends-on ("package"))
 		 (:file "window" :depends-on ("package"))
-                 (:file "graphics" :depends-on ("package"))))
+                 (:file "graphics" :depends-on ("package"))
+                 (:file "utils" :depends-on ("package"))))
 		 

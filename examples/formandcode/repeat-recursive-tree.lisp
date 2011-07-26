@@ -18,8 +18,8 @@
 
 (in-package :formandcode-examples)
 
-(defparameter *angle-offset-a* 1.5)
-(defparameter *angle-offset-b* 50)
+(defparameter *angle-offset-a* (radian 1.5))
+(defparameter *angle-offset-b* (radian 50))
 
 (defclass repeat-recursive-tree (base-app)
   ((dot-size :accessor dot-size :initform 9)))
@@ -30,14 +30,13 @@
 (defmethod draw ((app repeat-recursive-tree))
   (set-background 1 1 1)
   (set-color 0 0 0)
-  ;;(gl:translate (/ (window-width app) 2) (window-height app) 0)
-  (seed1 (dot-size app) 270 0 0))
-
+;;  (gl:translate (/ (window-width app) 2) (window-height app) 0)
+  (seed1 (dot-size app) (radian 270) (/ (window-width app) 2) (window-height app)))
 
 (defun seed1 (dot-size angle x y)
   (when (> dot-size 1)    
     ;; Create a random number between 0 and 1
-    (let ((r (/ (random 100) 100)))
+    (let ((r (random 1.0)))
       (cond ((> r 0.02) ;;98% chance this will happen
 	     (draw-circle x y dot-size)
 	     (let ((newx (+ x (* (cos angle) dot-size)))
@@ -54,7 +53,7 @@
 
 (defun seed2 (dot-size angle x y)
   (when (> dot-size 1)
-    (let ((r (/ (random 100) 100)))
+    (let ((r (random 1.0)))
       (cond ((> r 0.05);;95% chance this will happen
 	     (draw-circle x y dot-size)
 	     (let ((newx (+ x (* (cos angle) dot-size)))
