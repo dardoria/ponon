@@ -27,9 +27,12 @@
 (defclass shape ()
   ((color :accessor color :initarg :color)))
 
+;;TODO make these functions and not methods
+;;and create use a with-object macro 
 (defgeneric rotate (shape x y))
-(defgeneric move (shape x y))
+(defgeneric translate (shape x y))
 (defgeneric scale (shape))
+
 (defgeneric draw (shape))
 
 ;;line
@@ -54,6 +57,10 @@
 
 (defmethod draw ((rect rectangle))
   (draw-rectangle (x rect) (y rect) (width rect) (height rect)))
+
+(defmethod translate ((rect rectangle) x y)
+  ;;todo
+  )
 
 (defun make-rectangle (x y width height)
   (make-instance 'rectangle :x x :y y :width width :height height))

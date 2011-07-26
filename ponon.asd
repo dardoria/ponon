@@ -32,5 +32,6 @@
 		 (:file "app" :depends-on ("package"))
 		 (:file "window" :depends-on ("package"))
                  (:file "graphics" :depends-on ("package"))
+                 (:file "shapes" :depends-on ("graphics"))
                  (:file "utils" :depends-on ("package"))))
 		 

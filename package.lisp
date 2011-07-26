@@ -71,5 +71,24 @@
    #:draw-arc
    #:draw-polygon
    #:draw-curve
+   ;;2d shapes
+   #:rotate
+   #:translate
+   #:scale
+   #:draw
+   #:line
+   #:make-line
+   #:rectangle
+   #:make-rectangle
+   #:triangle
+   #:make-triangle
+   #:circle
+   #:make-circle
+   #:arc
+   #:make-arc
+   #:polygon
+   #:make-polygon
+   #:curve
+   #:make-curve
    ;;utils
    #:radian))
