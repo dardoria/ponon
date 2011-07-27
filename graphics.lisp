@@ -128,3 +128,13 @@
   (gl:with-primitive :line-strip 
     (loop for i from 0 to 30 ;;todo no magick numbers
        do (gl:eval-coord-1 (/ i 30)))))
+
+
+(defun rotate (theta x y z)
+  (gl:rotate theta x y z))
+
+(defun translate (x y z)
+  (gl:translate x y z))
+
+(defun scale (x y z)
+  (gl:scale x y z))

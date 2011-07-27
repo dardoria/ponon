@@ -71,11 +71,12 @@
    #:draw-arc
    #:draw-polygon
    #:draw-curve
-   ;;2d shapes
    #:rotate
    #:translate
    #:scale
-   #:draw
+   #:with-state
+   ;;2d shapes
+   #:draw-shape
    #:line
    #:make-line
    #:rectangle
@@ -91,4 +92,5 @@
    #:curve
    #:make-curve
    ;;utils
-   #:radian))
+   #:radian
+   #:random-range))

@@ -21,46 +21,32 @@
    (column-offset :accessor column-offset :initform 60)
    (row-offset :accessor row-offset :initform 30)
    (rotation-increment :accessor rotation-increment :initform 0.15)
-   (bricks :accessor bricks :initform '())))
+   (bricks :accessor bricks)))
 
 (defmethod setup ((app parametrize-waves))
-  (setf *fill* nil)
-  (setf (bricks app)
-	(loop repeat 10 ;;(* (columns app) (rows app))
-	   collect (make-rectangle 30 30 (brick-width app) (brick-height app)))))
+  (setf *fill* nil))
 
 (defmethod draw ((app parametrize-waves))
-  (set-background 1 1 1)
-  (set-color 0 0 0)
-  (format t "start~%")
-  (loop for brick in (bricks app)
-     for i from 0
-     do (translate brick (* i (column-offset app)) 0)
-       (draw brick)))
+  (ponon::with-state
+    (translate 30 30 0)
 
-;;   (loop for brick in (bricks app)
-;;      for i from 0
-;;      do (gl:with-pushed-matrix
-;; 	  (gl:translate (* i (column-offset app)) 0 0)
-;; 	  (draw brick))))
+    (set-background 1 1 1)
+    (set-color 0 0 0)
 
-;;   for (int i=0; i<cols; i++) {
-;;     pushMatrix();
-;;     translate(i * column-offset, 0);
-;;     float r = random(-QUARTER_PI, QUARTER_PI);
-;;     int dir = 1;
-;;     for (int j=0; j<rows; j++) {
-;;       pushMatrix();
-;;       translate(0, row-offset * j);
-;;       rotate(r);
-;;       rect(-brick-width/2, -brick-height/2, brick-width, brick-height);
-;;       popMatrix();
-;;       r += dir * rotationIncrement;
-;;       if (r > QUARTER_PI || r < -QUARTER_PI) dir *= -1;
-;;     }
-;;     popMatrix();
-;;   }
-;; }
+    (dotimes (i (columns app))
+      (ponon::with-state
+	(translate (* i (column-offset app)) 0 0)
+	(let ((r (ponon::random-range -45 45))
+	      (dir 1))
+	  (dotimes (j (rows app))
+	    (ponon::with-state
+	      (translate 0 (* j (row-offset app)) 0)
+	      (rotate r 0 0 1)
+	      (draw-rectangle (- (/ (brick-width app) 2)) (- (/ (brick-height app) 2)) (brick-width app) (brick-height app)))
+	    (setf r (+ r (* dir (rotation-increment app))))
+	    (when (or (> r 45)
+		      (< r -45))
+	      (setf dir -1))))))))
 
 (defun run-parametrize-waves ()
   (run (make-app 'parametrize-waves :title "parametrize-waves" :width 1200 :height 768)))

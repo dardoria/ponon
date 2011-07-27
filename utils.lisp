@@ -26,3 +26,8 @@
 
 (defun radian (degree)
   (* degree (/ PI 180)))
+
+(defun random-range (x y)
+  (when (> x y)
+    (rotatef x y))
+  (+ x (random (- y x))))

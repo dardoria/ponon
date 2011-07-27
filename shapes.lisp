@@ -24,16 +24,15 @@
 
 (in-package :ponon)
 
+(defmacro with-state (&body body)
+  `(progn 
+     (gl:with-pushed-matrix
+       ,@body)))
+
 (defclass shape ()
   ((color :accessor color :initarg :color)))
 
-;;TODO make these functions and not methods
-;;and create use a with-object macro 
-(defgeneric rotate (shape x y))
-(defgeneric translate (shape x y))
-(defgeneric scale (shape))
-
-(defgeneric draw (shape))
+(defgeneric draw-shape (shape))
 
 ;;line
 (defclass line (shape)
@@ -42,7 +41,7 @@
    (x2 :accessor x2 :initarg :x2)
    (y2 :accessor y2 :initarg :y2)))
 
-(defmethod draw ((obj line))
+(defmethod draw-shape ((obj line))
   (draw-line (x1 obj) (y1 obj) (x2 obj) (y2 obj)))
 
 (defun make-line (x1 y1 x2 y2)
@@ -55,12 +54,8 @@
    (width :accessor width :initform 0 :initarg :width)
    (height :accessor height :initform 0 :initarg :height)))
 
-(defmethod draw ((rect rectangle))
+(defmethod draw-shape ((rect rectangle))
   (draw-rectangle (x rect) (y rect) (width rect) (height rect)))
-
-(defmethod translate ((rect rectangle) x y)
-  ;;todo
-  )
 
 (defun make-rectangle (x y width height)
   (make-instance 'rectangle :x x :y y :width width :height height))
@@ -74,7 +69,7 @@
    (x3 :accessor x3 :initarg :x3)
    (y3 :accessor y3 :initarg :y3)))
 
-(defmethod draw ((obj triangle))
+(defmethod draw-shape ((obj triangle))
   (draw-triangle (x1 obj) (y1 obj) (x2 obj) (y2 obj) (x3 obj) (y3 obj)))
 
 (defun make-triangle (x1 y1 x2 y2 x3 y3)
@@ -86,7 +81,7 @@
    (y :accessor y :initform 0 :initarg :y)
    (radius :accessor radius :initarg :radius)))
 
-(defmethod draw ((obj circle))
+(defmethod draw-shape ((obj circle))
   (draw-circle (x obj) (y obj) (radius obj)))
 
 (defun make-circle (x y radius)
@@ -110,7 +105,7 @@
 (defclass polygon (shape)
   ((points :accessor points :initarg points)))
 
-(defmethod draw ((obj polygon))
+(defmethod draw-shape ((obj polygon))
   (draw-polygon (points obj)))
 
 (defun make-polygon (points)
@@ -120,7 +115,7 @@
 (defclass curve (shape)
   ((points :accessor points :initarg points)))
 
-(defmethod draw ((obj curve))
+(defmethod draw-shape ((obj curve))
   (draw-curve (points obj)))
 
 (defun make-curve (points)
