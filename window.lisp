@@ -36,7 +36,10 @@
   (declare (ignore x y))
   (key-pressed (app window) key)
   (case key
-    (#\Esc (glut:destroy-current-window))))
+    (#\Esc 
+     (progn
+       (exit (app window))
+       (glut:destroy-current-window)))))
 
 (defmethod glut:keyboard-up ((window glut-window) key x y)
   (declare (ignore x y))
@@ -65,7 +68,7 @@
 (defmethod glut:reshape ((window glut-window) width height)
   (window-resized (app window) width height))
 
-(defmethod glut:display ((window glut-window))
+(defmethod glut:display ((window glut-window))  
   (draw (app window))
   (glut:swap-buffers))
 

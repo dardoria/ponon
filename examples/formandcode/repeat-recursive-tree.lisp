@@ -25,12 +25,12 @@
   ((dot-size :accessor dot-size :initform 9)))
 
 (defmethod setup ((app repeat-recursive-tree))
-  (setf *fill* nil))
+  (setf *fill* nil)
+  (setf (frames-per-second app) 1))
 
 (defmethod draw ((app repeat-recursive-tree))
   (set-background 1 1 1)
   (set-color 0 0 0)
-;;  (gl:translate (/ (window-width app) 2) (window-height app) 0)
   (seed1 (dot-size app) (radian 270) (/ (window-width app) 2) (window-height app)))
 
 (defun seed1 (dot-size angle x y)

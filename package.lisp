@@ -39,6 +39,7 @@
    #:draw
    #:exit
    #:run
+   #:frames-per-second
    #:window-position-x
    #:window-position-y
    #:window-width

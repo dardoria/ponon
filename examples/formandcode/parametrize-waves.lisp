@@ -20,8 +20,7 @@
    (rows :accessor rows :initform 24)
    (column-offset :accessor column-offset :initform 60)
    (row-offset :accessor row-offset :initform 30)
-   (rotation-increment :accessor rotation-increment :initform 0.15)
-   (bricks :accessor bricks)))
+   (rotation-increment :accessor rotation-increment :initform 0.15)))
 
 (defmethod setup ((app parametrize-waves))
   (setf *fill* nil))
@@ -43,7 +42,7 @@
 	      (translate 0 (* j (row-offset app)) 0)
 	      (rotate r 0 0 1)
 	      (draw-rectangle (- (/ (brick-width app) 2)) (- (/ (brick-height app) 2)) (brick-width app) (brick-height app)))
-	    (setf r (+ r (* dir (rotation-increment app))))
+	    (incf r (* dir (rotation-increment app)))
 	    (when (or (> r 45)
 		      (< r -45))
 	      (setf dir -1))))))))
