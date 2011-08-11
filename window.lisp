@@ -72,6 +72,36 @@
   (draw (app window))
   (glut:swap-buffers))
 
+;; (defparameter my-time 0)
+;; (defparameter my-timebase 0)
+;; (defparameter my-frame 0)
+;; (defparameter my-fps 0)
+
 (defmethod glut:idle ((window glut-window))
+
+;;   (incf my-frame)
+;;   (setf my-time (glut:get :elapsed-time))
+;;   (when (> (- my-time my-timebase) 1000)
+;;     (progn
+;;       (setf my-fps (/ (* my-frame 1000) (- my-time my-timebase)))
+;;       (setf my-timebase my-time)
+;;       (setf my-frame 0)
+;;       (format t "~$~%" my-fps)))
+  
+  (let* ((app (app window))
+         (skip-ticks (/ 1000 (frames-per-second app))) ;;todo define this once
+         (next-tick (get-internal-real-time))
+         (sleep-time 0))
+    
+    (incf next-tick skip-ticks)
+    (setf sleep-time (/ (- next-tick (get-internal-real-time)) 1000))
+    
+    (when (> sleep-time 0)
+      (sleep sleep-time))
+
   (update (app window))
-  (glut:post-redisplay))
+  (glut:post-redisplay)))
+    
+
+
+

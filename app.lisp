@@ -33,20 +33,12 @@
 
 (defclass base-app ()
   ((window :accessor window)
-   (fps :accessor frames-per-second :initform 60)
-   (start-time :accessor start-time :initform 0)
-   (app-running :accessor app-running :initform nil)))
-
-(defmethod initialize-instance :after ((app base-app) &rest initargs)
-  (declare (ignore initargs))
-  (setf (start-time app) (get-internal-real-time)))
+   (fps :accessor frames-per-second :initform 25)))
 
 (defgeneric run (app)
   (:documentation "Start display loop")
   (:method ((app base-app))
-    (glut:display-window (window app))
-    (setf (app-running app) t)))
-;;    (start-display-loop app)))
+    (glut:display-window (window app))))
 
 (defgeneric setup (base-app))
 (defmethod setup ((app base-app)))
@@ -149,24 +141,3 @@
 (defgeneric audio-requested (base-app stream buffer-size channels-nbr)
   (:documentation "Handle audio requested at otput stream with buffer-size and number of channels event.")
   (:method ((app base-app) stream buffer-size channels-nbr)))
-
-(defun start-display-loop (app)
-  (let ((skip-ticks (/ 1000 (frames-per-second app))) ;;todo define this once
-        (next-tick (get-tick-count app))
-        (sleep-time 0))
-
-    (tagbody
-       while
-       (when (app-running app)
-         (progn
-           (incf next-tick skip-ticks)
-           (setf sleep-time (- next-tick (get-tick-count app)))
-           
-           (update app)
-           (glut:post-redisplay)
-           (when (> sleep-time 0)
-             (sleep (/ sleep-time 1000)))))
-       (go while))))
-
-(defun get-tick-count (app)
-  (- (get-internal-real-time) (start-time app)))
