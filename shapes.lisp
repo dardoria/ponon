@@ -34,6 +34,12 @@
 
 (defgeneric draw-shape (shape))
 
+(defmethod draw-shape :around ((obj shape))
+  (gl:with-pushed-attrib (:current-bit)
+    (when (vectorp (color obj))
+      (gl:color (aref (color obj) 0) (aref (color obj) 1) (aref (color obj) 2))
+      (call-next-method))))
+
 ;;line
 (defclass line (shape)
   ((x1 :accessor x1 :initarg :x1)
@@ -57,8 +63,8 @@
 (defmethod draw-shape ((rect rectangle))
   (draw-rectangle (x rect) (y rect) (width rect) (height rect)))
 
-(defun make-rectangle (x y width height)
-  (make-instance 'rectangle :x x :y y :width width :height height))
+(defun make-rectangle (x y width height color)
+  (make-instance 'rectangle :x x :y y :width width :height height :color color))
 
 ;;triangle
 (defclass triangle (shape)

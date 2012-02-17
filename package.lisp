@@ -1,4 +1,3 @@
-
 ;;; -*- Mode: Lisp; indent-tabs-mode: nil -*-
 ;;;
 ;;; package.lisp --- Ponon package definition and exports

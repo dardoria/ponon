@@ -43,9 +43,8 @@
 	      (rotate r 0 0 1)
 	      (draw-rectangle (- (/ (brick-width app) 2)) (- (/ (brick-height app) 2)) (brick-width app) (brick-height app)))
 	    (incf r (* dir (rotation-increment app)))
-	    (when (or (> r 45)
-		      (< r -45))
-	      (setf dir -1))))))))
+	    (when (or (> r 45) (< r -45))
+	      (setf dir (* dir -1)))))))))
 
 (defun run-parametrize-waves ()
   (run (make-app 'parametrize-waves :title "parametrize-waves" :width 1200 :height 768)))

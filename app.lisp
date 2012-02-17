@@ -49,9 +49,8 @@
 (defgeneric draw (base-app))
 (defmethod draw ((app base-app)))
 
-(defgeneric exit (base-app))
-(defmethod exit ((app base-app))
-  (setf (app-running app) nil))
+(defgeneric exit (base-app)
+  (:method ((app base-app))))
 
 (defgeneric window-position-x (app)
   (:method ((app base-app))

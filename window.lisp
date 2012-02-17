@@ -37,9 +37,7 @@
   (key-pressed (app window) key)
   (case key
     (#\Esc 
-     (progn
-       (exit (app window))
-       (glut:destroy-current-window)))))
+     (glut:destroy-current-window))))
 
 (defmethod glut:keyboard-up ((window glut-window) key x y)
   (declare (ignore x y))
@@ -71,6 +69,9 @@
 (defmethod glut:display ((window glut-window))  
   (draw (app window))
   (glut:swap-buffers))
+
+(defmethod glut:close ((window glut-window))
+  (exit (app window)))
 
 ;; (defparameter my-time 0)
 ;; (defparameter my-timebase 0)
