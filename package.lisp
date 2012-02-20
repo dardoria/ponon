@@ -76,6 +76,8 @@
    #:scale
    #:with-state
    ;;2d shapes
+   #:shape
+   #:color
    #:draw-shape
    #:line
    #:make-line
