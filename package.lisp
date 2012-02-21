@@ -1,3 +1,4 @@
+
 ;;; -*- Mode: Lisp; indent-tabs-mode: nil -*-
 ;;;
 ;;; package.lisp --- Ponon package definition and exports
@@ -61,6 +62,7 @@
    #:audio-requested
    ;;graphics
    #:*fill*
+   #:smooth
    #:set-background
    #:clear
    #:set-color
@@ -82,6 +84,10 @@
    #:line
    #:make-line
    #:rectangle
+   #:rect-x
+   #:rect-y
+   #:rect-width
+   #:rect-height
    #:make-rectangle
    #:triangle
    #:make-triangle

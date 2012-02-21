@@ -30,13 +30,15 @@
        ,@body)))
 
 (defclass shape ()
-  ((color :accessor color :initarg :color)))
+  ((color :accessor color :initarg :color)
+   (line-width :accessor line-width :initarg :line-width :initform 1)))
 
 (defgeneric draw-shape (shape))
 
 (defmethod draw-shape :around ((obj shape))
-  (gl:with-pushed-attrib (:current-bit)
+  (gl:with-pushed-attrib (:current-bit :line-bit)
     (when (vectorp (color obj))
+      (gl:line-width (line-width obj))
       (gl:color (aref (color obj) 0) (aref (color obj) 1) (aref (color obj) 2))
       (call-next-method))))
 
@@ -55,13 +57,13 @@
 
 ;;rectangle
 (defclass rectangle (shape)
-  ((x :accessor x :initform 0 :initarg :x)
-   (y :accessor y :initform 0 :initarg :y)
-   (width :accessor width :initform 0 :initarg :width)
-   (height :accessor height :initform 0 :initarg :height)))
+  ((x :accessor rect-x :initform 0 :initarg :x)
+   (y :accessor rect-y :initform 0 :initarg :y)
+   (width :accessor rect-width :initform 0 :initarg :width)
+   (height :accessor rect-height :initform 0 :initarg :height)))
 
 (defmethod draw-shape ((rect rectangle))
-  (draw-rectangle (x rect) (y rect) (width rect) (height rect)))
+  (draw-rectangle (rect-x rect) (rect-y rect) (rect-width rect) (rect-height rect)))
 
 (defun make-rectangle (x y width height color)
   (make-instance 'rectangle :x x :y y :width width :height height :color color))

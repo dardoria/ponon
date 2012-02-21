@@ -90,14 +90,11 @@
 
 (defgeneric window-resized (base-app width height)
   (:documentation "Handle window resized event.")
-  ;;todo resize window correctly
   (:method ((app base-app) width height)
      (gl:viewport 0 0 width height)
      (gl:matrix-mode :projection)
      (gl:load-identity)
-     (if (<= width height)
-         (glu:ortho-2d 0 width 0 height)
-         (glu:ortho-2d width 0 height 0))
+     (glu:ortho-2d 0 width 0 height)
      (gl:matrix-mode :modelview)
      (gl:load-identity)))
 

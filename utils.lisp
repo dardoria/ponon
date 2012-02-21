@@ -28,6 +28,12 @@
   (* degree (/ PI 180)))
 
 (defun random-range (x y)
-  (when (> x y)
-    (rotatef x y))
-  (+ x (random (- y x))))
+  (cond ((= x y)
+         x)
+        (T
+         (when (> x y)
+           (rotatef x y))
+         (let ((range (- y x)))
+           (when (rationalp range)
+             (setf range (coerce range 'float)))
+           (+ x (random range ))))))

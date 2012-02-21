@@ -42,7 +42,13 @@
 (defun clear ()
   (gl:clear-color (first *bg-color*) (second *bg-color*) (third *bg-color*) 0)
   (gl:clear :color-buffer :depth-buffer))
- 
+
+(defun smooth()
+  (gl:shade-model :smooth)
+  (gl:hint :line-smooth-hint :nicest)
+  (gl:enable :blend)
+  (gl:blend-func :src-alpha :one-minus-src-alpha))
+
 (defun draw-line (x1 y1 x2 y2)
   (gl:with-primitives :lines
     (gl:vertex x1 y1)
