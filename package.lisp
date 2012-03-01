@@ -101,4 +101,5 @@
    #:make-curve
    ;;utils
    #:radian
-   #:random-range))
+   #:random-range
+   #:random-element))

@@ -37,3 +37,6 @@
            (when (rationalp range)
              (setf range (coerce range 'float)))
            (+ x (random range ))))))
+
+(defun random-element (sequence)
+  (nth (random (length sequence)) sequence))
