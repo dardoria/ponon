@@ -39,4 +39,5 @@
            (+ x (random range ))))))
 
 (defun random-element (sequence)
-  (nth (random (length sequence)) sequence))
+  (when sequence
+    (nth (random (length sequence)) sequence)))
