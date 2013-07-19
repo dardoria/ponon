@@ -99,6 +99,8 @@
    #:make-polygon
    #:curve
    #:make-curve
+   ;;text
+   #:draw-string
    ;;utils
    #:radian
    #:random-range

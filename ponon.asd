@@ -27,11 +27,12 @@
     :version "0.1"
     :author "Boian Tzonev <btzonev@gmail.com>"
     :licence "MIT License"
-    :depends-on (cffi cl-opengl cl-glut cl-glu)
+    :depends-on (cffi cl-opengl cl-glut cl-glu zpb-ttf)
     :components ((:file "package")
 		 (:file "app" :depends-on ("package"))
 		 (:file "window" :depends-on ("package"))
                  (:file "graphics" :depends-on ("package"))
                  (:file "shapes" :depends-on ("graphics"))
-                 (:file "utils" :depends-on ("package"))))
+                 (:file "utils" :depends-on ("package"))
+                 (:file "textrendering" :depends-on ("package"))))
 		 
