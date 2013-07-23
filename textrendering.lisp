@@ -5,10 +5,10 @@
 ;;   http://nklein.com/2009/12/rendering-text-with-cl-opengl-and-zpb-ttf
 
 (defun draw-quad (bx1 by1 bx2 by2)
-  (gl:with-primitives :quads
+  (gl:with-primitives :triangles
     (gl:vertex bx1 by1)
-    (gl:vertex bx2 by1)
     (gl:vertex bx2 by2)
+    (gl:vertex bx2 by1) 
     (gl:vertex bx1 by2)))
 
 (defun make-interpolator (ss cc ee)
@@ -87,7 +87,7 @@
 		    (dist-to-point-from-origin 0 1 0 ox oy oz))
 	       2)))))))
 
-(defun draw-string (font-loader string &key (size 48) (filled t)
+(defun draw-string (font-loader string x y &key (size 48) (filled t)
 		                            (cutoff nil))
   (unless cutoff
     (setf cutoff (calculate-cutoff font-loader size)))
@@ -102,7 +102,7 @@
       (let ((ss (/ size (zpb-ttf:units/em font-loader))))
 	(gl:scale ss ss ss))
 
-      (gl:translate (/ (- bx1 bx2) 2) (/ (- by1 by2) 2) 0)
+      (gl:translate x y 0.0)
 
       (gl:with-pushed-attrib (:current-bit :color-buffer-bit :line-bit
 				           :hint-bit :stencil-buffer-bit)

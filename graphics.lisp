@@ -41,7 +41,7 @@
 
 (defun clear ()
   (gl:clear-color (first *bg-color*) (second *bg-color*) (third *bg-color*) 0)
-  (gl:clear :color-buffer :depth-buffer))
+  (gl:clear :color-buffer :depth-buffer :color-buffer-bit))
 
 (defun smooth()
   (gl:shade-model :smooth)
