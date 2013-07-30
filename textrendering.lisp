@@ -33,20 +33,15 @@
 
 (defun render-glyph (glyph mode cutoff)
   (zpb-ttf:do-contours (contour glyph)
-    (gl:with-primitives mode
-      (zpb-ttf:do-contour-segments (start ctrl end) contour
-	(let ((sx (zpb-ttf:x start))
-	      (sy (zpb-ttf:y start))
-	      (cx (when ctrl (zpb-ttf:x ctrl)))
-	      (cy (when ctrl (zpb-ttf:y ctrl)))
-	      (ex (zpb-ttf:x end))
-	      (ey (zpb-ttf:y end)))
-	  (gl:vertex sx sy)
-	  (when ctrl
-	    (let ((int-x (make-interpolator sx cx ex))
-		  (int-y (make-interpolator sy cy ey)))
-	      (interpolate sx sy ex ey int-x int-y cutoff)))
-	  (gl:vertex ex ey))))))
+    ;(gl:with-primitives mode
+    (zpb-ttf:do-contour-segments (start ctrl end) contour
+      (let ((sx (zpb-ttf:x start))
+	    (sy (zpb-ttf:y start))
+	    (cx (when ctrl (zpb-ttf:x ctrl)))
+	    (cy (when ctrl (zpb-ttf:y ctrl)))
+	    (ex (zpb-ttf:x end))
+	    (ey (zpb-ttf:y end)))
+	(draw-curve (make-array '(3 3) :initial-contents (list (list sx sy 0) (list cx cy 0) (list ex ey 0))))))))
 
 (defun render-string (string font-loader fill cutoff)
   (loop :for pos :from 0 :below (length string)
