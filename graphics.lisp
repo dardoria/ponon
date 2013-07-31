@@ -130,13 +130,10 @@
   (gl:shade-model :flat)
   (gl:map1 :map1-vertex-3 0 1 points)
   (gl:enable :map1-vertex-3)
-
-  (gl:with-primitive :line-strip 
-    (loop for i from 0 to 30 ;;todo no magick numbers
-       do (gl:eval-coord-1 (/ i 30))))
-
-  )
-
+  (let ((precision 40))
+    (gl:with-primitive :line-strip 
+      (loop for i from 0 to precision
+         do (gl:eval-coord-1 (/ i precision))))))
 
 (defun rotate (theta x y z)
   (gl:rotate theta x y z))

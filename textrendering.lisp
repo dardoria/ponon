@@ -1,7 +1,6 @@
 (in-package :ponon)
 
-;; Taken from nklein.com
-;; see blog post for documentation of what follows:
+;; Based on code from nklein.com
 ;;   http://nklein.com/2009/12/rendering-text-with-cl-opengl-and-zpb-ttf
 
 (defun draw-quad (bx1 by1 bx2 by2)
@@ -11,29 +10,8 @@
     (gl:vertex bx2 by1) 
     (gl:vertex bx1 by2)))
 
-(defun make-interpolator (ss cc ee)
-  (let ((xx (+ ss (* -2 cc) ee))
-	(yy (* 2 (- cc ss))) 
-	(zz ss))
-    #'(lambda (tt)
-	(+ (* xx tt tt) (* yy tt) zz))))
-
-(defun interpolate (sx sy ex ey int-x int-y cutoff &optional (st 0) (et 1))
-  (let ((mx (/ (+ sx ex) 2.0))
-	(my (/ (+ sy ey) 2.0))
-	(mt (/ (+ st et) 2.0)))
-    (let ((nx (funcall int-x mt))
-	  (ny (funcall int-y mt)))
-      (let ((dx (- mx nx))
-	    (dy (- my ny)))
-	(when (< (* cutoff cutoff) (+ (* dx dx) (* dy dy)))
-	  (interpolate sx sy nx ny int-x int-y cutoff st mt)
-	  (gl:vertex nx ny)
-	  (interpolate nx ny ex ey int-x int-y cutoff mt et))))))
-
 (defun render-glyph (glyph mode cutoff)
   (zpb-ttf:do-contours (contour glyph)
-    ;(gl:with-primitives mode
     (zpb-ttf:do-contour-segments (start ctrl end) contour
       (let ((sx (zpb-ttf:x start))
 	    (sy (zpb-ttf:y start))
@@ -41,7 +19,9 @@
 	    (cy (when ctrl (zpb-ttf:y ctrl)))
 	    (ex (zpb-ttf:x end))
 	    (ey (zpb-ttf:y end)))
-	(draw-curve (make-array '(3 3) :initial-contents (list (list sx sy 0) (list cx cy 0) (list ex ey 0))))))))
+	(if ctrl
+	    (draw-curve (make-array '(3 3) :initial-contents (list (list sx sy 0) (list cx cy 0) (list ex ey 0))))
+	    (draw-line sx sy ex ey))))))
 
 (defun render-string (string font-loader fill cutoff)
   (loop :for pos :from 0 :below (length string)
@@ -95,10 +75,10 @@
 	   (by2 (aref box 3)))
 
       (let ((ss (/ size (zpb-ttf:units/em font-loader))))
-	(gl:scale ss ss ss))
+	(gl:scale ss (* ss -1) ss)) ;;flip the y axis, as the cooordinate system's center is at top left corner
 
       (gl:translate x y 0.0)
-
+      
       (gl:with-pushed-attrib (:current-bit :color-buffer-bit :line-bit
 				           :hint-bit :stencil-buffer-bit)
 	;; antialias lines

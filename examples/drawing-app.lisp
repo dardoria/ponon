@@ -29,11 +29,12 @@
 ;		  (365 25 0)
 ;		  (305 200 0)
 ;		  (250 25 0)))
-  (draw-curve #2A((100 220 0) (50 75 0) (-40 -100 0) (300 100 0) (-4 -490 0) (80 80 0) (400 340 0) (600 0 2) (1 1 0)))
+  (draw-curve #2A((100 220 0) (50 75 0) (40 100 0) (300 100 0) (4 490 0) (80 80 0) (400 340 0) (600 0 2) (1 1 0)))
   (set-color 0.5 0.9 1 1)
-  (draw-string (zpb-ttf:open-font-loader #P"../../data/ponon/CaesarDressing-Regular.ttf") "Bimbo" 400.0 420.0 :filled nil)
+  (draw-string (zpb-ttf:open-font-loader #P"../../data/ponon/CaesarDressing-Regular.ttf") "ABCDEFGHIJKLMNOPQRSTUVWXYZ" 30 -1000 :filled nil :size 80)
+  (draw-string (zpb-ttf:open-font-loader #P"../../data/ponon/CaesarDressing-Regular.ttf") "abcdefghijklmnopqrstuvwxyz" 30 -2000 :filled t :size 80)
 )
 
 
 (defun run-drawing-app ()
-  (run (make-app 'drawing-app  :title "drawing" :pos-x 100 :pos-y 100 :width 1000 :height 1000)))
+  (run (make-app 'drawing-app  :title "drawing" :pos-x 100 :pos-y 100 :width 1200 :height 700)))
