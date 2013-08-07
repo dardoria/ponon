@@ -36,7 +36,7 @@
   (setf *bg-color* (list red green blue))
   (clear))
 
-(defun set-color (red green blue &optional (alpha 0))
+(defun set-color (red green blue &optional (alpha 1))
   (gl:color red green blue alpha))
 
 (defun clear ()
